@@ -1,0 +1,19 @@
+dependencies {
+	
+}
+
+publishing {
+    publications {
+		maven(MavenPublication) { 
+			version = '0.0.1'
+		}
+	}
+}
+	
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = true
+}

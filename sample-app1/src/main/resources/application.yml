@@ -1,0 +1,43 @@
+spring:
+  profiles:
+    active: local
+
+logging:
+  level:
+    root: WARN
+    com.openlabs: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} [%4L] - %m%n"
+
+---
+
+spring:
+  profiles: local
+logging:
+  level:
+    com.openlabs: DEBUG
+    
+---
+
+spring:
+  profiles: dev
+logging:
+  level:
+    com.openlabs: DEBUG
+---
+
+spring:
+  profiles: qa
+logging:
+  level:
+    com.openlabs: INFO
+
+---
+
+spring:
+  profiles: prod
+logging:
+  level:
+    com.openlabs: INFO
+    
+    

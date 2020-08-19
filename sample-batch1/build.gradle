@@ -1,0 +1,9 @@
+dependencies {
+	implementation 'com.openlabs:sample-common:0.0.1'
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
+	runtimeOnly 'com.h2database:h2'
+}
+
+bootJar {
+    enabled = true
+}
