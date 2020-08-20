@@ -16,7 +16,7 @@ public class StringUtil {
 	 * <p>Defined by {@link StringUtils#isEmpty(CharSequence)}.</p>
 	 * 
 	 * @param str the String to check, may be null
-	 * @return boolean true if the String is empty or null
+	 * @return true if the String is empty or null
 	 */
 	public static boolean isEmpty(String str) {
 		return StringUtils.isEmpty(str);
@@ -28,7 +28,7 @@ public class StringUtil {
 	 * <p>Defined by {@link StringUtils#containsWhitespace(CharSequence)}.</p>
 	 * 
 	 * @param str the String to check, may be null
-	 * @return boolean true if the String is not empty and contains at least 1 (breaking) whitespace character
+	 * @return true if the String is not empty and contains at least 1 (breaking) whitespace character
 	 */
 	public static boolean containSpace(String str) {
 		return StringUtils.containsWhitespace(str);
@@ -50,7 +50,7 @@ public class StringUtil {
 	 * <p>Digit is defined by {@link Character#isDigit(CharSequence)}.</p>
 	 * 
 	 * @param str the String to check, may be null
-	 * @return boolean true if the String is not empty and contains at least 1 (breaking) Digit character
+	 * @return true if the String is not empty and contains at least 1 (breaking) Digit character
 	 */
 	public static boolean containDigit(String str) {
 		if (str == null) {
@@ -65,5 +65,14 @@ public class StringUtil {
 		return false;
 	}
 	
-	
+	/**
+	 * <p>문자열(str)이 영문자인지 검사한다.</p>
+	 * <p>Defined by {@link StringUtils#isAlpha(CharSequence)}.</p>
+	 * 
+	 * @param str str the String to check, may be null
+	 * @return true if only contains letters, and is non-null
+	 */
+	public static boolean isAlpha(String str) {
+		return StringUtils.isAlpha(str);
+	}
 }
