@@ -1,5 +1,5 @@
 dependencies {
-	implementation 'com.openlabs:sample-common:0.0.1'
+	implementation 'com.openlabs:sample-common:0.0.1-SNAPSHOT'
 }
 
 bootJar {

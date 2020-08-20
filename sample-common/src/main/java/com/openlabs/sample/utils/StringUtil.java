@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 public class StringUtil {
 
 	/**
-	 * <p>¹®ÀÚ¿­(str)ÀÌ °ø¹éÀÌ³ª NULLÀÎÁö °Ë»çÇÑ´Ù.</p> 
+	 * <p>ë¬¸ìì—´(str)ì´ ê³µë°±ì´ë‚˜ NULLì¸ì§€ ê²€ì‚¬í•œë‹¤.</p> 
 	 * 
 	 * <p>Defined by {@link StringUtils#isEmpty(CharSequence)}.</p>
 	 * 
@@ -23,7 +23,7 @@ public class StringUtil {
 	}
 	
 	/**
-	 * <p>¹®ÀÚ¿­(str)ÀÌ °ø¹éÀÌ Æ÷ÇÔµÇ¾î ÀÖ´ÂÁö °Ë»çÇÑ´Ù.</p> 
+	 * <p>ë¬¸ìì—´(str)ì´ ê³µë°±ì´ í¬í•¨ë˜ì–´ ìˆëŠ”ì§€ ê²€ì‚¬í•œë‹¤.</p> 
 	 * 
 	 * <p>Defined by {@link StringUtils#containsWhitespace(CharSequence)}.</p>
 	 * 
@@ -35,7 +35,7 @@ public class StringUtil {
 	}
 	
 	/**
-	 * <p>¹®ÀÚ¿­(str)ÀÌ ¼ıÀÚÀÎÁö °Ë»çÇÑ´Ù.</p>
+	 * <p>ë¬¸ìì—´(str)ì´ ìˆ«ìì¸ì§€ ê²€ì‚¬í•œë‹¤.</p>
 	 * <p>Defined by {@link StringUtils#isNumeric(CharSequence)}.</p>
 	 * 
 	 * @param str the String to check, may be null
@@ -46,7 +46,7 @@ public class StringUtil {
 	}
 	
 	/**
-	 * <p>¹®ÀÚ¿­(str)¿¡ ¼ıÀÚ°¡ Æ÷ÇÔµÇ¾î ÀÖ´ÂÁö °Ë»çÇÑ´Ù.</p>
+	 * <p>ë¬¸ìì—´(str)ì— ìˆ«ìê°€ í¬í•¨ë˜ì–´ ìˆëŠ”ì§€ ê²€ì‚¬í•œë‹¤.</p>
 	 * <p>Digit is defined by {@link Character#isDigit(CharSequence)}.</p>
 	 * 
 	 * @param str the String to check, may be null
