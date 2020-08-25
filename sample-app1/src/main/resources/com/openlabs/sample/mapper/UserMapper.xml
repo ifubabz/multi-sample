@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.openlabs.sample.dao.UserMapper">
+
+	<select id="selectUserInfo" parameterType="java.lang.String" resultType="com.openlabs.sample.model.UserInfo">
+		SELECT ID
+			, NAME
+			, PHONE_NUMBER
+			, EMAIL
+		FROM USERS
+		WHERE ID = #{id}
+	</select>
+	
+	<insert id="insertUserInfo" parameterType="com.openlabs.sample.model.UserInfo">
+		INSERT INTO USERS (
+			ID
+			, NAME
+			, PHONE_NUMBER
+			, EMAIL
+		) VALUES (
+			#{id}
+			,#{name}
+			,#{phoneNumber}
+			,#{email}
+		)
+	</insert>
+	
+	<update id="updateUserInfo" parameterType="com.openlabs.sample.model.UserInfo">
+		UPDATE USERS SET
+			NAME = #{name}
+			, PHONE_NUMBER = #{phoneNumber}
+			, EMAIL = #{email}
+		WHERE ID = #{id}
+	</update>
+	
+	<delete id="deleteUserInfo" parameterType="java.lang.String">
+		DELETE FROM USERS
+		WHERE ID = #{id}
+	</delete>
+</mapper>
