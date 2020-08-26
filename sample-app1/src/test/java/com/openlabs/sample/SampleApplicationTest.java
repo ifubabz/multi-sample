@@ -1,4 +1,4 @@
-package com.openlabs.sample.app;
+package com.openlabs.sample;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

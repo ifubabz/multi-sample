@@ -18,4 +18,11 @@ public class CommonExceptionHandler {
 	    log.debug("response:{}", response);
 	    return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 	}
+	
+	@ExceptionHandler(Exception.class)
+    protected ResponseEntity<ErrorResponse> handleException(Exception e) {
+        log.error("handleEntityNotFoundException", e);
+        final ErrorResponse response = ErrorResponse.builder().errorCode(ErrorCode.INTERNAL_SERVER_ERROR).cause(e).build();
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

@@ -13,11 +13,6 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger.web.ModelRendering;
-import springfox.documentation.swagger.web.OperationsSorter;
-import springfox.documentation.swagger.web.TagsSorter;
-import springfox.documentation.swagger.web.UiConfiguration;
-import springfox.documentation.swagger.web.UiConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
@@ -57,24 +52,6 @@ public class SwaggerConfig {
                 .description("[SAMPLE] API")
                 .contact(new Contact("SAMPLE Swagger", "https://openlabs.co.kr", "sales@openlabs.co.kr"))
                 .version("1.0")
-                .build();
-    }
-
-    @Bean
-    UiConfiguration uiConfig() {
-        return UiConfigurationBuilder.builder()
-                .deepLinking(false)
-                .displayOperationId(true)
-                .defaultModelsExpandDepth(999)
-                .defaultModelExpandDepth(999)
-                .defaultModelRendering(ModelRendering.EXAMPLE)
-                .displayRequestDuration(true)
-                .filter(true)
-                .maxDisplayedTags(null)
-                .operationsSorter(OperationsSorter.ALPHA)
-                .showExtensions(false)
-                .tagsSorter(TagsSorter.ALPHA)
-                .validatorUrl(null)
                 .build();
     }
 }

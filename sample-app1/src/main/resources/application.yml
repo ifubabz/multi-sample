@@ -1,17 +1,22 @@
 server:
   port: 8080
-  #servlet:   # context-path: /api
+  #servlet:
+   # context-path: /api
   
 spring:
   profiles:
     active: local
-
-  datasource:
-    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:p6spy:oracle:thin:@192.168.0.102:1521:ORCLCDB
-    username: ejpark
-    password: dmdwns
-
+  first:
+    datasource:
+      driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+      jdbc-url: jdbc:p6spy:oracle:thin:@192.168.0.102:1521:ORCLCDB
+      username: ejpark
+      password: dmdwns
+      hikari:
+        connection-timeout: 30000 #30 sec
+        validation-timeout: 10000 #10 sec
+        maximum-pool-size: 50
+        connection-test-query: SELECT 1 FROM DUAL
 logging:
   level:
     root: WARN

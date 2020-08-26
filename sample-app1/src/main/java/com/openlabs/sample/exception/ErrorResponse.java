@@ -12,7 +12,7 @@ public class ErrorResponse {
 	private String message;
 	
 	@Builder
-	public ErrorResponse(ErrorCode errorCode, CommonException cause) {
+	public ErrorResponse(ErrorCode errorCode, Throwable cause) {
 		this.status = errorCode.getStatus();
 		this.message = cause.getMessage();
 	}
