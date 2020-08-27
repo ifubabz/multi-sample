@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Transactional
 @SpringBootTest
-class UserServiceImplTest {
+class UserServiceTest {
 
 	@Autowired
 	private UserService userService;

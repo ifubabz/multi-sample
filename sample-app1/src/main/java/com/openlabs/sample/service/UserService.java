@@ -2,20 +2,58 @@ package com.openlabs.sample.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.openlabs.sample.dao.UserMapper;
 import com.openlabs.sample.model.PagingInfo;
 import com.openlabs.sample.model.UserInfo;
 
-public interface UserService {
+import lombok.extern.slf4j.Slf4j;
 
-	public List<UserInfo> getUserInfoList(PagingInfo pagingInfo);
+@Slf4j
+@Transactional
+@Service
+public class UserService {
+
+	@Autowired
+	private UserMapper userMapper;
 	
-	public List<UserInfo> getUserInfoList(UserInfo userInfo, PagingInfo pagingInfo);
+	public List<UserInfo> getUserInfoList(PagingInfo pagingInfo) {
+		log.debug("PAGINGINFO:{}", pagingInfo);
+		List<UserInfo> userInfoList = userMapper.selectUserInfoList(pagingInfo);
+		log.debug("USERINFOLIST:{}", userInfoList.size());
+		return userInfoList;
+	}
 	
-	public UserInfo getUserById(String id);
+	public List<UserInfo> getUserInfoList(UserInfo userInfo, PagingInfo pagingInfo) {
+		log.debug("PAGINGINFO:{}", pagingInfo);
+		List<UserInfo> userInfoList = userMapper.selectUserInfoList(userInfo, pagingInfo);
+		log.debug("USERINFOLIST:{}", userInfoList.size());
+		return userInfoList;
+	}
 	
-	public int createUser(UserInfo userInfo);
-	
-	public int modifyUser(UserInfo userInfo);
-	
-	public int removeUser(String id);
+	public UserInfo getUserById(String id) {
+		log.debug("ID:{}", id);
+		UserInfo userInfo = userMapper.selectUserInfo(id);
+		log.debug("{}", userInfo);
+		return userInfo;
+	}
+
+	public int createUser(UserInfo userInfo) {
+		int result = userMapper.insertUserInfo(userInfo);
+		return result;
+	}
+
+	public int modifyUser(UserInfo userInfo) {
+		int result = userMapper.updateUserInfo(userInfo);
+		return result;
+	}
+
+	public int removeUser(String id) {
+		int result = userMapper.deleteUserInfo(id);
+		return result;
+	}
+
 }
