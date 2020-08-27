@@ -26,4 +26,5 @@ public class UserInfo extends CommonModel {
 	private String phoneNumber;
 	private String email;
 	
+	
 }

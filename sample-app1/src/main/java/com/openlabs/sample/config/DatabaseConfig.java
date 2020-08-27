@@ -16,6 +16,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+import com.openlabs.sample.interceptor.MyBatisPagingInterceptor;
+import com.openlabs.sample.interceptor.MyBatisPagingInterceptor.DatabaseType;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @EnableConfigurationProperties(MybatisProperties.class)
 @Configuration
 public class DatabaseConfig {
@@ -33,10 +39,14 @@ public class DatabaseConfig {
 	@Primary
     @Bean(name = "firstSqlSessionFactory")
 	public SqlSessionFactory sqlSessionFactory(@Qualifier("firstDataSource") DataSource dataSource) throws Exception {
+		String databaseName = dataSource.getConnection().getMetaData().getDatabaseProductName();
+		log.debug("DATABASENAME:{}", databaseName);
+
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
 		sqlSessionFactoryBean.setMapperLocations(this.properties.resolveMapperLocations());
 		sqlSessionFactoryBean.setConfiguration(this.properties.getConfiguration());
+		sqlSessionFactoryBean.setPlugins(new MyBatisPagingInterceptor(DatabaseType.get(databaseName)));
 		sqlSessionFactoryBean.setVfs(SpringBootVFS.class);
 		return sqlSessionFactoryBean.getObject();
 	}

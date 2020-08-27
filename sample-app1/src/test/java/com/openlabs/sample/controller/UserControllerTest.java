@@ -60,7 +60,7 @@ class UserControllerTest {
 		UserInfo userInfo = UserInfo.builder().id("A001").name("박응준").phoneNumber("010-6478-9411").email("ejpark@openlabs.co.kr").build();
 
 		when(userService.getUserById("A001")).thenReturn(userInfo);
-		this.mockMvc.perform(get("/user/A001"))
+		this.mockMvc.perform(get("/users/A001"))
 					.andDo(print())
 					.andExpect(status().isOk())
 					.andExpect(content().json("{\"id\":\"A001\",\"name\":\"박응준\",\"phoneNumber\":\"010-6478-9411\",\"email\":\"ejpark@openlabs.co.kr\"}"))
@@ -77,7 +77,7 @@ class UserControllerTest {
 		String content = objectMapper.writeValueAsString(userInfo);
 		log.debug("CONTENT:{}", content);
 		
-		this.mockMvc.perform(post("/user")
+		this.mockMvc.perform(post("/users")
 				.content(content)
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
@@ -89,7 +89,7 @@ class UserControllerTest {
 	
 	@Test
 	void error() throws Exception {
-		this.mockMvc.perform(get("/user/err"))
+		this.mockMvc.perform(get("/users/err"))
 		.andDo(print())
 		.andExpect(status().isBadRequest())
 		.andExpect(content().string(containsString(ErrorCode.INVALID_INPUT_VALUE.getMessage())))

@@ -3,6 +3,20 @@
 
 <mapper namespace="com.openlabs.sample.dao.UserMapper">
 
+	<select id="selectUserInfoList" parameterType="com.openlabs.sample.model.UserInfo" resultType="com.openlabs.sample.model.UserInfo">
+		SELECT ID
+			, NAME
+			, PHONE_NUMBER
+			, EMAIL
+		FROM USERS
+		<where>
+			<if test="name!=null">
+				NAME LIKE '%'||#{name}||'%'
+			</if>
+		</where>
+		ORDER BY ID
+	</select>
+	
 	<select id="selectUserInfo" parameterType="java.lang.String" resultType="com.openlabs.sample.model.UserInfo">
 		SELECT ID
 			, NAME

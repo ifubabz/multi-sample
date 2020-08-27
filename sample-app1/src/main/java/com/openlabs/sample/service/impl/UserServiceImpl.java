@@ -1,10 +1,14 @@
 package com.openlabs.sample.service.impl;
 
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.openlabs.sample.dao.UserMapper;
+import com.openlabs.sample.model.PagingInfo;
 import com.openlabs.sample.model.UserInfo;
 import com.openlabs.sample.service.UserService;
 
@@ -17,6 +21,22 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Override
+	public List<UserInfo> getUserInfoList(PagingInfo pagingInfo) {
+		log.debug("PAGINGINFO:{}", pagingInfo);
+		List<UserInfo> userInfoList = userMapper.selectUserInfoList(pagingInfo);
+		log.debug("USERINFOLIST:{}", userInfoList.size());
+		return userInfoList;
+	}
+	
+	@Override
+	public List<UserInfo> getUserInfoList(UserInfo userInfo, PagingInfo pagingInfo) {
+		log.debug("PAGINGINFO:{}", pagingInfo);
+		List<UserInfo> userInfoList = userMapper.selectUserInfoList(userInfo, pagingInfo);
+		log.debug("USERINFOLIST:{}", userInfoList.size());
+		return userInfoList;
+	}
 	
 	@Override
 	public UserInfo getUserById(String id) {

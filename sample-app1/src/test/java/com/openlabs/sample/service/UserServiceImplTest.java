@@ -2,11 +2,11 @@ package com.openlabs.sample.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +14,41 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.openlabs.sample.model.PagingInfo;
 import com.openlabs.sample.model.UserInfo;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Transactional
 @SpringBootTest
 class UserServiceImplTest {
 
 	@Autowired
 	private UserService userService;
+	
+	@Test
+	void getUserList() {
+		int pageNo = 0;
+		int rowPerPage = 10;
+		PagingInfo pagingInfo = new PagingInfo(pageNo, rowPerPage);
+		List<UserInfo> userList = userService.getUserInfoList(pagingInfo);
+		int size = userList.size();
+		log.debug("USERLIST:{}", userList);
+		assertEquals(rowPerPage, size);
+	}
+	
+	@Test
+	void getUserFilterList() {
+		int pageNo = 0;
+		int rowPerPage = 10;
+		PagingInfo pagingInfo = new PagingInfo(pageNo, rowPerPage);
+		UserInfo param = UserInfo.builder().name("12345").build();
+		List<UserInfo> userList = userService.getUserInfoList(param, pagingInfo);
+		int size = userList.size();
+		log.debug("USERLIST:{}", userList);
+		assertEquals(rowPerPage, size);
+	}
 	
 	@Test
 	void getUserById() {
@@ -44,7 +71,7 @@ class UserServiceImplTest {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = {"A001", "A002"})
+	@ValueSource(strings = {"A0000000000000001", "A0000000000000002"})
 	void parameteriedGetUserById(String id) {
 		UserInfo userInfo = userService.getUserById(id);
 		assertEquals(id, userInfo.getId());

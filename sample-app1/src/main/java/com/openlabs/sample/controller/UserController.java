@@ -2,11 +2,13 @@ package com.openlabs.sample.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.openlabs.sample.exception.CommonException;
 import com.openlabs.sample.exception.ErrorCode;
+import com.openlabs.sample.model.PagingInfo;
 import com.openlabs.sample.model.UserInfo;
 import com.openlabs.sample.service.UserService;
 
@@ -25,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Api(tags = "사용자관리")
 @Slf4j
-@RequestMapping("/user")
+@RequestMapping("/users")
 @RestController
 public class UserController {
 	
@@ -38,6 +41,15 @@ public class UserController {
 		String now = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 		log.debug("NOW:{}", now);
 		return now;
+	}
+	
+	@ApiOperation("사용자 정보 목록")
+	@GetMapping(path = "/")
+	public ResponseEntity<List<UserInfo>> getUserList(@ModelAttribute PagingInfo pagingInfo) {
+		log.debug("pagingInfo:{}", pagingInfo);
+		List<UserInfo> userInfoList = userService.getUserInfoList(pagingInfo);
+		log.debug("SIZE:{}", userInfoList.size());
+		return ResponseEntity.ok(userInfoList);
 	}
 	
 	@ApiOperation("사용자 정보 조회")
