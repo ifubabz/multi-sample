@@ -37,7 +37,7 @@ public class MyBatisPagingInterceptor implements Interceptor {
 					return dbmsName;
 				}
 			}
-			return null;
+			return ORACLE;
 		}
 	}
 	

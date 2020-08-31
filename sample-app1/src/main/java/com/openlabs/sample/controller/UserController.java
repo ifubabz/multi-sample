@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openlabs.sample.exception.CommonException;
 import com.openlabs.sample.exception.ErrorCode;
 import com.openlabs.sample.model.PagingInfo;
+import com.openlabs.sample.model.PersonInfo;
 import com.openlabs.sample.model.UserInfo;
+import com.openlabs.sample.service.CityService;
 import com.openlabs.sample.service.UserService;
 
 import io.swagger.annotations.Api;
@@ -34,6 +36,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CityService cityService;
 	
 	@ApiOperation("현재 시간 출력")
 	@GetMapping(path = "/now")
@@ -94,6 +99,14 @@ public class UserController {
 	@GetMapping(path = "/err")
 	public ResponseEntity<UserInfo> err() {
 		throw new CommonException(ErrorCode.INVALID_INPUT_VALUE);
+	}
+	
+	@ApiOperation("Ignite Cache")
+	@GetMapping(path = "/persons")
+	public ResponseEntity<List<PersonInfo>> persons() {
+		List<PersonInfo> personInfoList = cityService.getPersonInfoList();
+		log.debug("SIZE:{}", personInfoList.size());
+		return ResponseEntity.ok(personInfoList);
 	}
 
 }

@@ -2,11 +2,13 @@ package com.openlabs.sample.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.openlabs.sample.dao.UserMapper;
+import com.openlabs.sample.mapper.db.UserMapper;
 import com.openlabs.sample.model.PagingInfo;
 import com.openlabs.sample.model.UserInfo;
 
@@ -18,10 +20,15 @@ import lombok.extern.slf4j.Slf4j;
 public class UserService {
 
 	@Autowired
-	private UserMapper userMapper;
+	@Qualifier("firstSessionTemplate")
+	private SqlSession sqlSession;
+	
+	@Autowired
+	UserMapper userMapper;
 	
 	public List<UserInfo> getUserInfoList(PagingInfo pagingInfo) {
 		log.debug("PAGINGINFO:{}", pagingInfo);
+		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 		List<UserInfo> userInfoList = userMapper.selectUserInfoList(pagingInfo);
 		log.debug("USERINFOLIST:{}", userInfoList.size());
 		return userInfoList;

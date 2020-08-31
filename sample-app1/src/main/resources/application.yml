@@ -17,6 +17,11 @@ spring:
         validation-timeout: 10000 #10 sec
         maximum-pool-size: 50
         connection-test-query: SELECT 1 FROM DUAL
+  ignite:
+    datasource:
+      driver-class-name: org.apache.ignite.IgniteJdbcThinDriver
+      jdbc-url: jdbc:ignite:thin://192.168.87.100:10800
+      
 logging:
   level:
     root: WARN
@@ -25,7 +30,12 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} [%4L] - %m%n"
 
 mybatis:
-  mapper-locations: classpath:com/openlabs/**/mapper/**/*.xml
+  mapper-locations: classpath:com/openlabs/sample/**/mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+ignite:
+  mapper-locations: classpath:com/openlabs/sample/**/cache/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.openlabs.sample.mapper.cache.PersonMapper">
+	<!-- <cache type="org.mybatis.caches.ignite.IgniteCacheAdapter" /> -->
+	
+	<select id="selectPersonInfoList" resultType="com.openlabs.sample.model.PersonInfo" useCache="true">
+		SELECT P.NAME AS PERSON_NAME
+			, C.NAME AS CITY_NAME
+		FROM PERSON P
+			, CITY C
+		WHERE P.CITY_ID = C.ID
+	</select>
+</mapper>

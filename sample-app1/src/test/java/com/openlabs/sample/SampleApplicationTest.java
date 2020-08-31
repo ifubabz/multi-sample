@@ -1,5 +1,7 @@
 package com.openlabs.sample;
 
+import java.sql.SQLException;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -7,8 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class SampleApplicationTest {
 
 	@Test
-	void contextLoad() {
+	void contextLoad() throws SQLException, ClassNotFoundException {
 
-		
 	}
 }

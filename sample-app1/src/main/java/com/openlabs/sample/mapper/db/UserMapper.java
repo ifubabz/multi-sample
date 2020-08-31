@@ -1,4 +1,4 @@
-package com.openlabs.sample.dao;
+package com.openlabs.sample.mapper.db;
 
 import java.util.List;
 
