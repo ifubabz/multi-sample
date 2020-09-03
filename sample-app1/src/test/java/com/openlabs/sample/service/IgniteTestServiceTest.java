@@ -14,10 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Transactional
 @SpringBootTest
-class CityServiceTest {
+class IgniteTestServiceTest {
 
 	@Autowired
-	private CityService cityService;
+	private IgniteTestService cityService;
 	
 	@Test
 	void igniteTest() {

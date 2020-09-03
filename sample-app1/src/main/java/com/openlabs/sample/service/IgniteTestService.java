@@ -13,17 +13,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.openlabs.sample.mapper.cache.Ac0125Mapper;
+import com.openlabs.sample.mapper.cache.IgniteTestMapper;
+import com.openlabs.sample.model.Ac0125;
 import com.openlabs.sample.model.PagingInfo;
 import com.openlabs.sample.model.PersonInfo;
+import com.openlabs.sample.model.Td1111;
 
-import kr.co.openlabs.examples.model.Ac0125;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Transactional
 @Service
-public class CityService {
+public class IgniteTestService {
 
 	@Autowired
 	@Qualifier("igniteSessionTemplate")
@@ -33,17 +34,24 @@ public class CityService {
 	Ignite ignite;
 	
 	public List<PersonInfo> getPersonInfoList() {
-		Ac0125Mapper ac0125Mapper = sqlSession.getMapper(Ac0125Mapper.class);
-		List<PersonInfo> personInfoList = ac0125Mapper.selectPersonInfoList();
+		IgniteTestMapper igniteTestMapper = sqlSession.getMapper(IgniteTestMapper.class);
+		List<PersonInfo> personInfoList = igniteTestMapper.selectPersonInfoList();
 		log.debug("PERSONINFOLIST:{}", personInfoList.size());
 		return personInfoList;
 	}
 	
 	public List<Ac0125> getAc0125InfoList(PagingInfo pagingInfo) {
-		Ac0125Mapper ac0125Mapper = sqlSession.getMapper(Ac0125Mapper.class);
-		List<Ac0125> ac0125InfoList = ac0125Mapper.selectAc0125InfoList(pagingInfo);
+		IgniteTestMapper igniteTestMapper = sqlSession.getMapper(IgniteTestMapper.class);
+		List<Ac0125> ac0125InfoList = igniteTestMapper.selectAc0125InfoList(pagingInfo);
 		log.debug("AC0125INFOLIST:{}", ac0125InfoList.size());
 		return ac0125InfoList;
+	}
+	
+	public List<Td1111> getTd1111InfoList(PagingInfo pagingInfo) {
+		IgniteTestMapper igniteTestMapper = sqlSession.getMapper(IgniteTestMapper.class);
+		List<Td1111> td1111InfoList = igniteTestMapper.selectTd1111InfoList(pagingInfo);
+		log.debug("TD1111INFOLIST:{}", td1111InfoList.size());
+		return td1111InfoList;
 	}
 	
 	public String cacheNames() {

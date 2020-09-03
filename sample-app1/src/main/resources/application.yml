@@ -16,11 +16,22 @@ spring:
         connection-timeout: 30000 #30 sec
         validation-timeout: 10000 #10 sec
         maximum-pool-size: 50
+        minimum-idle: 50
         connection-test-query: SELECT 1 FROM DUAL
   ignite:
     datasource:
-      driver-class-name: org.apache.ignite.IgniteJdbcThinDriver
-      jdbc-url: jdbc:ignite:thin://192.168.87.100:10800
+      driver-class-name: org.apache.ignite.IgniteJdbcDriver
+      jdbc-url: jdbc:ignite:cfg://distributedJoins=true:transactionsAllowed=true:@ignite-config.xml
+      username: test
+      password: test
+      hikari:
+        connection-timeout: 30000 #30 sec
+        validation-timeout: 10000 #10 sec
+        maximum-pool-size: 50
+        minimum-idle: 50
+        connection-test-query: SELECT 1
+#      driver-class-name: org.apache.ignite.IgniteJdbcThinDriver
+#      jdbc-url: jdbc:ignite:thin://192.168.87.100:10800
       
 logging:
   level:
@@ -45,6 +56,7 @@ spring:
   profiles: local
 logging:
   level:
+    root: DEBUG
     com.openlabs: DEBUG
     p6spy: DEBUG
     

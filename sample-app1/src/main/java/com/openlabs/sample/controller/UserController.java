@@ -19,14 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openlabs.sample.exception.CommonException;
 import com.openlabs.sample.exception.ErrorCode;
 import com.openlabs.sample.model.PagingInfo;
-import com.openlabs.sample.model.PersonInfo;
 import com.openlabs.sample.model.UserInfo;
-import com.openlabs.sample.service.CityService;
 import com.openlabs.sample.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import kr.co.openlabs.examples.model.Ac0125;
 import lombok.extern.slf4j.Slf4j;
 
 @Api(tags = "사용자관리")
@@ -37,9 +34,6 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
-	
-	@Autowired
-	private CityService cityService;
 	
 	@ApiOperation("현재 시간 출력")
 	@GetMapping(path = "/now")
@@ -101,14 +95,4 @@ public class UserController {
 	public ResponseEntity<UserInfo> err() {
 		throw new CommonException(ErrorCode.INVALID_INPUT_VALUE);
 	}
-	
-	@ApiOperation("Ignite Cache")
-	@GetMapping(path = "/ac0125")
-	public ResponseEntity<List<Ac0125>> persons(@ModelAttribute PagingInfo pagingInfo) {
-		log.debug("pagingInfo:{}", pagingInfo);
-		List<Ac0125> ac0125InfoList = cityService.getAc0125InfoList(pagingInfo);
-		log.debug("SIZE:{}", ac0125InfoList.size());
-		return ResponseEntity.ok(ac0125InfoList);
-	}
-
 }

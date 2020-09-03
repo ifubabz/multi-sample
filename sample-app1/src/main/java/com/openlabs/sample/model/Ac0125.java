@@ -1,4 +1,4 @@
-package kr.co.openlabs.examples.model;
+package com.openlabs.sample.model;
 
 import java.io.Serializable;
 
