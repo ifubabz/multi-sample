@@ -1,7 +1,5 @@
 package com.openlabs.sample.config;
 
-import java.sql.SQLException;
-
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -18,7 +16,6 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import com.openlabs.sample.interceptor.MyBatisPagingInterceptor;
 import com.openlabs.sample.interceptor.MyBatisPagingInterceptor.DatabaseType;
@@ -44,19 +41,11 @@ public class DatabaseConfig {
 	@Primary
 	@Bean(name = "firstSqlSessionFactory")
 	public SqlSessionFactory sqlSessionFactory(@Autowired @Qualifier("firstDataSource") DataSource dataSource) throws Exception {
-		String databaseName = "";
-		try {
-			databaseName = dataSource.getConnection().getMetaData().getDatabaseProductName();
-		} catch (SQLException e) {
-			log.debug("[ERROR] Connection Failed.", e);
-		}
-		log.debug("DATABASENAME:{}", databaseName);
-
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
 		sqlSessionFactoryBean.setMapperLocations(this.properties.resolveMapperLocations());
 		sqlSessionFactoryBean.setConfiguration(this.properties.getConfiguration());
-		sqlSessionFactoryBean.setPlugins(new MyBatisPagingInterceptor(DatabaseType.get(databaseName)));
+		sqlSessionFactoryBean.setPlugins(new MyBatisPagingInterceptor(DatabaseType.ORACLE));
 		sqlSessionFactoryBean.setVfs(SpringBootVFS.class);
 		
 		return sqlSessionFactoryBean.getObject();
@@ -67,10 +56,4 @@ public class DatabaseConfig {
 	public SqlSessionTemplate sqlSessionTemplate(@Autowired @Qualifier("firstSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}
-	
-	@Primary
-    @Bean(name="transactionManager")
-    public DataSourceTransactionManager transactionManager(@Autowired @Qualifier("firstDataSource") DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
-    }
 }

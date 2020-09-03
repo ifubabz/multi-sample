@@ -6,8 +6,8 @@ dependencies {
 	implementation ('org.apache.ignite:ignite-spring:2.8.1') {
 		exclude group: 'com.h2database', module: 'h2'
 	}
+	implementation 'org.apache.ignite:ignite-slf4j:2.8.1'
 	//implementation 'org.apache.ignite:ignite-spring-boot-autoconfigure-ext:1.0.0'
-	//implementation 'org.apache.ignite:ignite-slf4j:2.8.1'
 	//implementation 'org.mybatis.caches:mybatis-ignite:1.1.0'
 	implementation 'io.springfox:springfox-swagger2:2.9.2'
 	implementation 'io.springfox:springfox-swagger-ui:2.9.2'

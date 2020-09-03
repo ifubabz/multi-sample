@@ -26,6 +26,7 @@ import com.openlabs.sample.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import kr.co.openlabs.examples.model.Ac0125;
 import lombok.extern.slf4j.Slf4j;
 
 @Api(tags = "사용자관리")
@@ -102,11 +103,12 @@ public class UserController {
 	}
 	
 	@ApiOperation("Ignite Cache")
-	@GetMapping(path = "/persons")
-	public ResponseEntity<List<PersonInfo>> persons() {
-		List<PersonInfo> personInfoList = cityService.getPersonInfoList();
-		log.debug("SIZE:{}", personInfoList.size());
-		return ResponseEntity.ok(personInfoList);
+	@GetMapping(path = "/ac0125")
+	public ResponseEntity<List<Ac0125>> persons(@ModelAttribute PagingInfo pagingInfo) {
+		log.debug("pagingInfo:{}", pagingInfo);
+		List<Ac0125> ac0125InfoList = cityService.getAc0125InfoList(pagingInfo);
+		log.debug("SIZE:{}", ac0125InfoList.size());
+		return ResponseEntity.ok(ac0125InfoList);
 	}
 
 }

@@ -28,12 +28,23 @@ public class MyBatisPagingInterceptor implements Interceptor {
 	private DatabaseType databaseType;
 	
 	public enum DatabaseType {
-		ORACLE, MYSQL
+		ORACLE("Oracle"), IGNITE("Apache Ignite")
 		;
+		
+		private String value;
+		
+		private DatabaseType(String value) {
+			this.value = value;
+		}
+		
+		public String value() {
+			return this.value;
+		}
+
 		public static DatabaseType get(String productName) {
 			log.debug("PRODUCTNAME:{}", productName);
 			for(DatabaseType dbmsName : DatabaseType.values()) {
-				if(dbmsName.name().equalsIgnoreCase(productName)) {
+				if(dbmsName.value().equalsIgnoreCase(productName)) {
 					return dbmsName;
 				}
 			}
@@ -64,7 +75,6 @@ public class MyBatisPagingInterceptor implements Interceptor {
 		metaStatementHandler.setValue("delegate.rowBounds.offset", RowBounds.NO_ROW_OFFSET);
 		metaStatementHandler.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);
 		metaStatementHandler.setValue("delegate.boundSql.sql", sql);
-
 		return invocation.proceed();
 	}
 

@@ -22,7 +22,7 @@ public class PagingSqlHelper {
 			sb.append(" ROWS ONLY ");
 			break;
 			
-		case MYSQL:
+		case IGNITE:
 			sb.append(originalSql);
 			sb.append("\n");
 			sb.append("LIMIT ");

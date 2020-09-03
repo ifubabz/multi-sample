@@ -15,7 +15,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.openlabs.sample.model.PagingInfo;
-import com.openlabs.sample.model.PersonInfo;
 import com.openlabs.sample.model.UserInfo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,15 +26,6 @@ class UserServiceTest {
 
 	@Autowired
 	private UserService userService;
-	
-	@Autowired
-	private CityService cityService;
-	
-	@Test
-	void igniteTest() {
-		List<PersonInfo> personInfoList = this.cityService.getPersonInfoList();
-		log.debug("PERSONINFOLIST:{}", personInfoList);
-	}
 	
 	@Test
 	void getUserList() {
