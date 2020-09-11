@@ -1,7 +1,5 @@
 package com.openlabs.sample.service;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -28,7 +26,7 @@ import com.openlabs.sample.model.Td1111;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Transactional
+@Transactional("igniteTransactionManager")
 @Service
 public class IgniteTestService {
 
@@ -36,8 +34,8 @@ public class IgniteTestService {
 	@Qualifier("igniteSessionTemplate")
 	private SqlSession sqlSession;
 	
-	@Autowired
-	private Ignite ignite;
+//	@Autowired
+//	private Ignite ignite;
 	
 	public List<PersonInfo> getPersonInfoList() {
 		IgniteTestMapper igniteTestMapper = sqlSession.getMapper(IgniteTestMapper.class);
@@ -74,13 +72,6 @@ public class IgniteTestService {
 	
 	public Ac0125 sqlTransactionTest(Ac0125 ac0125) {
 		IgniteTestMapper igniteTestMapper = sqlSession.getMapper(IgniteTestMapper.class);
-		try {
-			Connection conn = sqlSession.getConnection();
-			log.debug("getAutoCommit:{}", conn.getAutoCommit());
-			conn.setAutoCommit(false);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		int result = igniteTestMapper.updateAc0125Info(ac0125);
 		log.debug("RESULT:{}", result);
 		Ac0125 ac0125Info = igniteTestMapper.selectAc0125Info(ac0125);
@@ -89,37 +80,37 @@ public class IgniteTestService {
 		throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR);
 	}
 	
-	public kr.co.openlabs.examples.model.Ac0125 transactionTest(Ac0125 param) {
-		IgniteTransactions transactions = ignite.transactions();
-		IgniteCache<String, kr.co.openlabs.examples.model.Ac0125> ac0125Cache = ignite.getOrCreateCache("Ac0125Cache");
-		kr.co.openlabs.examples.model.Ac0125 ac0125Info = null;
-		try (Transaction tx = transactions.txStart()) {
-			String key = param.getAcno();
-			ac0125Info = ac0125Cache.get(key);
-			log.debug("AC0125INFO:{}", ac0125Info);
-			ac0125Info.setTgIvsrYn(param.getTgIvsrYn());
-			ac0125Cache.put(key, ac0125Info);
-			log.debug("RESULT:{}", ac0125Cache.get(key));
-
-			if(true) {
-				throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR);			
-			}
-			
-			tx.commit();
-		}
-		return ac0125Info;
-	}
-	
-	public String cacheNames() {
-		Collection<String> cacheNames = this.ignite.cacheNames();
-		log.debug("CACHENAMES:{}", cacheNames);
-		Iterator<String> itr = cacheNames.iterator();
-		while(itr.hasNext()) {
-			String cacheName = itr.next();
-			IgniteCache<Object, Object> cache = this.ignite.getOrCreateCache(cacheName);
-			int size = cache.size(CachePeekMode.PRIMARY);
-			log.debug("cacheName:{}, size:{}", cacheName, size);
-		}
-		return cacheNames.toString();
-	}
+//	public kr.co.openlabs.examples.model.Ac0125 transactionTest(Ac0125 param) {
+//		IgniteTransactions transactions = ignite.transactions();
+//		IgniteCache<String, kr.co.openlabs.examples.model.Ac0125> ac0125Cache = ignite.getOrCreateCache("Ac0125Cache");
+//		kr.co.openlabs.examples.model.Ac0125 ac0125Info = null;
+//		try (Transaction tx = transactions.txStart()) {
+//			String key = param.getAcno();
+//			ac0125Info = ac0125Cache.get(key);
+//			log.debug("AC0125INFO:{}", ac0125Info);
+//			ac0125Info.setTgIvsrYn(param.getTgIvsrYn());
+//			ac0125Cache.put(key, ac0125Info);
+//			log.debug("RESULT:{}", ac0125Cache.get(key));
+//
+//			if(true) {
+//				throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR);			
+//			}
+//			
+//			tx.commit();
+//		}
+//		return ac0125Info;
+//	}
+//	
+//	public String cacheNames() {
+//		Collection<String> cacheNames = this.ignite.cacheNames();
+//		log.debug("CACHENAMES:{}", cacheNames);
+//		Iterator<String> itr = cacheNames.iterator();
+//		while(itr.hasNext()) {
+//			String cacheName = itr.next();
+//			IgniteCache<Object, Object> cache = this.ignite.getOrCreateCache(cacheName);
+//			int size = cache.size(CachePeekMode.PRIMARY);
+//			log.debug("cacheName:{}, size:{}", cacheName, size);
+//		}
+//		return cacheNames.toString();
+//	}
 }

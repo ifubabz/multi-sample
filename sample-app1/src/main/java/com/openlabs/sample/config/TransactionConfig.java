@@ -2,6 +2,8 @@ package com.openlabs.sample.config;
 
 import javax.sql.DataSource;
 
+import org.apache.ignite.transactions.TransactionConcurrency;
+import org.apache.ignite.transactions.spring.SpringTransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -25,11 +27,14 @@ public class TransactionConfig {
 	
 	@Bean(name = "igniteTransactionManager")
     public PlatformTransactionManager igniteTransactionManager(@Autowired @Qualifier("igniteDataSource") DataSource dataSource) {
-//		SpringTransactionManager springTransactionManager = new SpringTransactionManager();
-//		springTransactionManager.setTransactionConcurrency(TransactionConcurrency.PESSIMISTIC);
+		String cfgPath = "ignite-config.xml";
+//		String igniteInstanceName = "SampleAppClient";
+		SpringTransactionManager springTransactionManager = new SpringTransactionManager();
+//		springTransactionManager.setIgniteInstanceName(igniteInstanceName);
+		springTransactionManager.setConfigurationPath(cfgPath);
 //		springTransactionManager.setApplicationContext(this.context);
-//        return springTransactionManager;
-        return new DataSourceTransactionManager(dataSource);
+        return springTransactionManager;
+//        return new DataSourceTransactionManager(dataSource);
     }
 	
 //	@Primary

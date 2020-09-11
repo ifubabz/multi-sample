@@ -25,9 +25,9 @@ class IgniteTestServiceTest {
 		log.debug("PERSONINFOLIST:{}", personInfoList);
 	}
 	
-	@Test
-	void igniteCache() {
-		String cacheName = this.cityService.cacheNames();
-		log.debug("CACHENAME:{}", cacheName);
-	}
+//	@Test
+//	void igniteCache() {
+//		String cacheName = this.cityService.cacheNames();
+//		log.debug("CACHENAME:{}", cacheName);
+//	}
 }

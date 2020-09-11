@@ -22,6 +22,7 @@
     </bean>
 
     <bean class="org.apache.ignite.configuration.IgniteConfiguration">
+    	<property name="igniteInstanceName" value="SampleAppClient"/>
         <property name="clientMode" value="true"/>
 		
 		<property name="communicationSpi">

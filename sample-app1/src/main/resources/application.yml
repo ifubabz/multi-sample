@@ -20,8 +20,8 @@ spring:
         #connection-test-query: SELECT 1 FROM DUAL
   ignite:
     datasource:
-      driver-class-name: org.apache.ignite.IgniteJdbcDriver
-      jdbc-url: jdbc:ignite:cfg://distributedJoins=true:transactionsAllowed=true:@ignite-config.xml
+      driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+      jdbc-url: jdbc:p6spy:ignite:cfg://distributedJoins=true:transactionsAllowed=true:@ignite-config.xml
       username: test
       password: ENC(H+OQ6qJOb4ChmhIIOhAvzg==)
       hikari:

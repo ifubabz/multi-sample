@@ -49,14 +49,14 @@ public class IgniteTestController {
 		return ResponseEntity.ok(ac0125);
 	}
 	
-	@ApiOperation("Ignite AC0125")
-	@PutMapping(path = "/ac0125/err")
-	public ResponseEntity<kr.co.openlabs.examples.model.Ac0125> modifyErrTest(@RequestBody Ac0125 param) {
-		log.debug("PARAM:{}", param);
-		kr.co.openlabs.examples.model.Ac0125 ac0125 = igniteTestService.transactionTest(param);
-		log.debug("AC0125:{}", ac0125);
-		return ResponseEntity.ok(ac0125);
-	}
+//	@ApiOperation("Ignite AC0125")
+//	@PutMapping(path = "/ac0125/err")
+//	public ResponseEntity<kr.co.openlabs.examples.model.Ac0125> modifyErrTest(@RequestBody Ac0125 param) {
+//		log.debug("PARAM:{}", param);
+//		kr.co.openlabs.examples.model.Ac0125 ac0125 = igniteTestService.transactionTest(param);
+//		log.debug("AC0125:{}", ac0125);
+//		return ResponseEntity.ok(ac0125);
+//	}
 	
 	@ApiOperation("Ignite AC0125")
 	@PutMapping(path = "/ac0125/sql/err")
