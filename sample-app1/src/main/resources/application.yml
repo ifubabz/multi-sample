@@ -15,8 +15,8 @@ spring:
       hikari:
         connection-timeout: 30000 #30 sec
         validation-timeout: 10000 #10 sec
-        maximum-pool-size: 50
-        minimum-idle: 50
+        maximum-pool-size: 10
+        minimum-idle: 10
         #connection-test-query: SELECT 1 FROM DUAL
   ignite:
     datasource:
@@ -27,8 +27,8 @@ spring:
       hikari:
         connection-timeout: 30000 #30 sec
         validation-timeout: 10000 #10 sec
-        maximum-pool-size: 50
-        minimum-idle: 50
+        maximum-pool-size: 10
+        minimum-idle: 10
         auto-commit: false
         #connection-test-query: SELECT 1
 #      driver-class-name: org.apache.ignite.IgniteJdbcThinDriver

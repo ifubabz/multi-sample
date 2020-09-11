@@ -6,7 +6,7 @@ import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.openlabs.sample.secure.SecureKeyHandler;
+import com.openlabs.sample.common.secure.SecureKeyHandler;
 
 @Configuration
 public class JasyptConfig {

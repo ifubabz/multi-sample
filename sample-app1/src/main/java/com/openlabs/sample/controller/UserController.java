@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.openlabs.sample.common.RetrybleRestTemplate;
 import com.openlabs.sample.exception.CommonException;
 import com.openlabs.sample.exception.ErrorCode;
 import com.openlabs.sample.model.PagingInfo;
@@ -35,12 +36,27 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private RetrybleRestTemplate restTemplate;
+	
 	@ApiOperation("현재 시간 출력")
 	@GetMapping(path = "/now")
 	public String now() {
 		String now = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 		log.debug("NOW:{}", now);
 		return now;
+	}
+	
+	@ApiOperation("현재 시간 출력")
+	@GetMapping(path = "/retry")
+	public ResponseEntity<String> retry() {
+		return restTemplate.getForEntity("http://localhost:8080/users/now", String.class);
+	}
+	
+	@ApiOperation("현재 시간 출력")
+	@GetMapping(path = "/retry1")
+	public ResponseEntity<String> retry1() {
+		return restTemplate.getForEntity("http://localhost:8080/user/now", String.class);
 	}
 	
 	@ApiOperation("사용자 정보 목록")

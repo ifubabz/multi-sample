@@ -1,4 +1,4 @@
-package com.openlabs.sample.secure;
+package com.openlabs.sample.common.secure;
 
 public class SecureKeyHandler {
 

@@ -1,4 +1,4 @@
-package com.openlabs.sample.config;
+package com.openlabs.sample.config.data;
 
 import javax.sql.DataSource;
 
@@ -27,14 +27,14 @@ public class TransactionConfig {
 	
 	@Bean(name = "igniteTransactionManager")
     public PlatformTransactionManager igniteTransactionManager(@Autowired @Qualifier("igniteDataSource") DataSource dataSource) {
-		String cfgPath = "ignite-config.xml";
+//		String cfgPath = "ignite-config.xml";
 //		String igniteInstanceName = "SampleAppClient";
-		SpringTransactionManager springTransactionManager = new SpringTransactionManager();
+//		SpringTransactionManager springTransactionManager = new SpringTransactionManager();
 //		springTransactionManager.setIgniteInstanceName(igniteInstanceName);
-		springTransactionManager.setConfigurationPath(cfgPath);
+//		springTransactionManager.setConfigurationPath(cfgPath);
 //		springTransactionManager.setApplicationContext(this.context);
-        return springTransactionManager;
-//        return new DataSourceTransactionManager(dataSource);
+//        return springTransactionManager;
+        return new DataSourceTransactionManager(dataSource);
     }
 	
 //	@Primary

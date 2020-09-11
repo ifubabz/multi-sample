@@ -1,4 +1,4 @@
-package com.openlabs.sample.config;
+package com.openlabs.sample.config.data;
 
 import java.io.IOException;
 import java.util.Optional;

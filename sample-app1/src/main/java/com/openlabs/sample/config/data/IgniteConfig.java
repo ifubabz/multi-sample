@@ -1,4 +1,4 @@
-package com.openlabs.sample.config;
+package com.openlabs.sample.config.data;
 
 import javax.sql.DataSource;
 
