@@ -95,4 +95,15 @@ public class UserController {
 	public ResponseEntity<UserInfo> err() {
 		throw new CommonException(ErrorCode.INVALID_INPUT_VALUE);
 	}
+	
+	@ApiOperation("사용자 정보 등록")
+	@PostMapping(path = "/sql/err")
+	public ResponseEntity<UserInfo> transactionTest(@RequestBody UserInfo userInfo) {
+		log.debug("USERINFO:{}", userInfo);
+		userService.transactionTest(userInfo);
+		
+		UserInfo result = userService.getUserById(userInfo.getId());
+		return ResponseEntity.ok(result);
+	}
+	
 }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +36,35 @@ public class IgniteTestController {
 		List<Ac0125> ac0125InfoList = igniteTestService.getAc0125InfoList(pagingInfo);
 		log.debug("SIZE:{}", ac0125InfoList.size());
 		return ResponseEntity.ok(ac0125InfoList);
+	}
+	
+	@ApiOperation("Ignite AC0125")
+	@PutMapping(path = "/ac0125")
+	public ResponseEntity<Ac0125> modifyTest(@RequestBody Ac0125 param) {
+		log.debug("PARAM:{}", param);
+		int result = igniteTestService.modifyAc0125Info(param);
+		log.debug("result:{}", result);
+		Ac0125 ac0125 = igniteTestService.getAc0125Info(param);
+		log.debug("AC0125:{}", ac0125);
+		return ResponseEntity.ok(ac0125);
+	}
+	
+	@ApiOperation("Ignite AC0125")
+	@PutMapping(path = "/ac0125/err")
+	public ResponseEntity<kr.co.openlabs.examples.model.Ac0125> modifyErrTest(@RequestBody Ac0125 param) {
+		log.debug("PARAM:{}", param);
+		kr.co.openlabs.examples.model.Ac0125 ac0125 = igniteTestService.transactionTest(param);
+		log.debug("AC0125:{}", ac0125);
+		return ResponseEntity.ok(ac0125);
+	}
+	
+	@ApiOperation("Ignite AC0125")
+	@PutMapping(path = "/ac0125/sql/err")
+	public ResponseEntity<Ac0125> modifySqlErrTest(@RequestBody Ac0125 param) {
+		log.debug("PARAM:{}", param);
+		Ac0125 ac0125 = igniteTestService.sqlTransactionTest(param);
+		log.debug("AC0125:{}", ac0125);
+		return ResponseEntity.ok(ac0125);
 	}
 	
 	@ApiOperation("Ignite TD1111")

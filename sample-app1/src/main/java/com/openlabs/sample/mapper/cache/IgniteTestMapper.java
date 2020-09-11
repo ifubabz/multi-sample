@@ -16,6 +16,10 @@ public interface IgniteTestMapper {
 	
 	public List<Ac0125> selectAc0125InfoList(PagingInfo pagingInfo);
 	
+	public Ac0125 selectAc0125Info(Ac0125 ac0125);
+	
+	public int updateAc0125Info(Ac0125 ac0125);
+	
 	public List<Td1111> selectTd1111InfoList(PagingInfo pagingInfo);
 	
 }

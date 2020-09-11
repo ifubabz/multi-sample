@@ -3,6 +3,8 @@ package com.openlabs.sample.config;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ignite.Ignite;
+import org.apache.ignite.Ignition;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -29,7 +31,7 @@ public class IgniteConfig {
 	@Bean(name = "igniteDataSource")
 	@ConfigurationProperties(prefix = "spring.ignite.datasource")
 	public DataSource dataSource() {
-		return DataSourceBuilder.create().build();	
+		return DataSourceBuilder.create().build();
 	}
 
 	@Bean(name = "igniteSqlSessionFactory")
@@ -40,12 +42,17 @@ public class IgniteConfig {
 		sqlSessionFactoryBean.setConfiguration(this.properties.getConfiguration());
 		sqlSessionFactoryBean.setPlugins(new MyBatisPagingInterceptor(DatabaseType.IGNITE));
 		sqlSessionFactoryBean.setVfs(SpringBootVFS.class);
-
 		return sqlSessionFactoryBean.getObject();
 	}
 
 	@Bean(name = "igniteSessionTemplate")
 	public SqlSessionTemplate sqlSessionTemplate(@Autowired @Qualifier("igniteSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory);
+	}
+	
+	@Bean
+	public Ignite ignite() {
+		Ignite ignite = Ignition.start(this.properties.getConfigFile());
+		return ignite;
 	}
 }

@@ -23,7 +23,7 @@ import com.openlabs.sample.interceptor.MyBatisPagingInterceptor.DatabaseType;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@MapperScan(basePackages = "com.openlabs.sample.mapper.db", sqlSessionFactoryRef = "firstSqlSessionFactory")
+@MapperScan(basePackages = "com.openlabs.sample.mapper.db", sqlSessionFactoryRef = "primarySqlSessionFactory")
 @EnableConfigurationProperties(MybatisProperties.class)
 @Configuration
 public class DatabaseConfig {
@@ -32,28 +32,28 @@ public class DatabaseConfig {
     private MybatisProperties properties;
 	
 	@Primary
-	@Bean(name = "firstDataSource")
-	@ConfigurationProperties(prefix = "spring.first.datasource")
+	@Bean(name = "primaryDataSource")
+	@ConfigurationProperties(prefix = "spring.primary.datasource")
 	public DataSource dataSource() {
 		return DataSourceBuilder.create().build();
 	}
 
 	@Primary
-	@Bean(name = "firstSqlSessionFactory")
-	public SqlSessionFactory sqlSessionFactory(@Autowired @Qualifier("firstDataSource") DataSource dataSource) throws Exception {
+	@Bean(name = "primarySqlSessionFactory")
+	public SqlSessionFactory sqlSessionFactory(@Autowired @Qualifier("primaryDataSource") DataSource dataSource) throws Exception {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
 		sqlSessionFactoryBean.setMapperLocations(this.properties.resolveMapperLocations());
 		sqlSessionFactoryBean.setConfiguration(this.properties.getConfiguration());
 		sqlSessionFactoryBean.setPlugins(new MyBatisPagingInterceptor(DatabaseType.ORACLE));
 		sqlSessionFactoryBean.setVfs(SpringBootVFS.class);
-		
-		return sqlSessionFactoryBean.getObject();
+		SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBean.getObject();
+		return sqlSessionFactory;
 	}
 
 	@Primary
-	@Bean(name = "firstSessionTemplate")
-	public SqlSessionTemplate sqlSessionTemplate(@Autowired @Qualifier("firstSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
+	@Bean(name = "primarySessionTemplate")
+	public SqlSessionTemplate sqlSessionTemplate(@Autowired @Qualifier("primarySqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}
 }

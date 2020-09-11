@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.openlabs.sample.exception.CommonException;
+import com.openlabs.sample.exception.ErrorCode;
 import com.openlabs.sample.mapper.db.UserMapper;
 import com.openlabs.sample.model.PagingInfo;
 import com.openlabs.sample.model.UserInfo;
@@ -20,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserService {
 
 	@Autowired
-	@Qualifier("firstSessionTemplate")
+	@Qualifier("primarySessionTemplate")
 	private SqlSession sqlSession;
 	
 	@Autowired
@@ -53,6 +55,18 @@ public class UserService {
 		return result;
 	}
 
+	public int transactionTest(UserInfo userInfo) {
+		int result = userMapper.insertUserInfo(userInfo);
+		
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR);
+	}
+	
 	public int modifyUser(UserInfo userInfo) {
 		int result = userMapper.updateUserInfo(userInfo);
 		return result;

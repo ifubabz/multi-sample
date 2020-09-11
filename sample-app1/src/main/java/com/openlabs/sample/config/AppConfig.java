@@ -14,6 +14,7 @@ public class AppConfig {
 	@Bean
 	public ObjectMapper objectMapper() {
 		ObjectMapper mapper = new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE)
+				.setSerializationInclusion(Include.ALWAYS)
 				.setDefaultPropertyInclusion(Include.NON_NULL)
 				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 				;
