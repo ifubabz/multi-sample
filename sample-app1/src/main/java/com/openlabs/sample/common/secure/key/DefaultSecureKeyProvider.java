@@ -3,12 +3,12 @@ package com.openlabs.sample.common.secure.key;
 public class DefaultSecureKeyProvider implements SecureKeyProvider {
 
 	@Override
-	public String getKey() {
-		return "password";
+	public byte[] getKey() {
+		return "password".getBytes();
 	}
 
 	@Override
-	public String getIvParameter() {
-		return "";
+	public byte[] getIvParameter() {
+		return "1234567891234567".getBytes();
 	}
 }

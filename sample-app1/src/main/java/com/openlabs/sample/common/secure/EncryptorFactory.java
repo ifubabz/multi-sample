@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class EncryptorFactory {
 	
-	private Map<ENCRYPT_TYPE, IEncryptor> map = new HashMap<>();;
+	private Map<ENCRYPT_TYPE, IEncryptor> map = new HashMap<>();
 	
 	private EncryptorFactory() {
 		initialize();
@@ -16,12 +16,12 @@ public class EncryptorFactory {
 		map.put(ENCRYPT_TYPE.JCE, new JceBase64Encryptor());
 	}
 
-	private static class InnerInstanceClazz {
+	private static class InnerInstanceHolder {
 		public static final EncryptorFactory instance = new EncryptorFactory();
 	}
 	
 	public static EncryptorFactory getInstance() {
-		return InnerInstanceClazz.instance;
+		return InnerInstanceHolder.instance;
 	}
 	
 	public IEncryptor getEncryptor() {

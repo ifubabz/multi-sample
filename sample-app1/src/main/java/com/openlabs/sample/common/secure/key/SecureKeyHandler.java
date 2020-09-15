@@ -4,11 +4,11 @@ public class SecureKeyHandler {
 
 	private static SecureKeyProvider provider = SecureKeyProviderFactory.getInstance().getProvider();
 
-	public static String getKey() {
+	public static byte[] getKey() {
 		return provider.getKey();
 	}
 
-	public static String getIvParameter() {
+	public static byte[] getIvParameter() {
 		return provider.getIvParameter();
 	}
 }

@@ -2,8 +2,8 @@ package com.openlabs.sample.common.secure.key;
 
 public interface SecureKeyProvider {
 
-	public String getKey();
+	public byte[] getKey();
 	
-	public String getIvParameter();
+	public byte[] getIvParameter();
 	
 }

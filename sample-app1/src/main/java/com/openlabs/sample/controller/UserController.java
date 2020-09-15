@@ -64,7 +64,7 @@ public class UserController {
 	@ApiOperation("암호화")
 	@GetMapping(path = "/enc")
 	public ResponseEntity<String> enc(@RequestBody UserInfo userInfo) {
-		String result = EncryptorFactory.getInstance().getEncryptor(ENCRYPT_TYPE.DEFAULT).encrypt(userInfo.getId());
+		String result = EncryptorFactory.getInstance().getEncryptor().encrypt(userInfo.getId());
 		return ResponseEntity.ok(result);
 	}
 	

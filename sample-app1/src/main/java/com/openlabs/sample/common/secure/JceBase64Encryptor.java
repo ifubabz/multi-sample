@@ -12,9 +12,9 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.openlabs.sample.common.secure.key.SecureKeyHandler;
-import com.openlabs.sample.exception.CommonException;
-import com.openlabs.sample.exception.ErrorCode;
+import com.openlabs.sample.common.secure.key.SecureKeyProvider;
+import com.openlabs.sample.common.secure.key.SecureKeyProviderFactory;
+import com.openlabs.sample.common.secure.key.SecureKeyProviderFactory.SECURE_KEY_TYPE;
 
 public class JceBase64Encryptor implements IEncryptor {
 
@@ -29,8 +29,9 @@ public class JceBase64Encryptor implements IEncryptor {
 	}
 	
 	private void initialize() {
-		byte[] key = SecureKeyHandler.getKey().getBytes();
-		byte[] ivParameter = SecureKeyHandler.getIvParameter().getBytes();
+		SecureKeyProvider secureKeyProvider = SecureKeyProviderFactory.getInstance().getProvider(SECURE_KEY_TYPE.JCE);
+		byte[] key = secureKeyProvider.getKey();
+		byte[] ivParameter = secureKeyProvider.getIvParameter();
 
 		SecretKeySpec secretKeySpec = new SecretKeySpec(key, algorithm);
 		IvParameterSpec ivParameterSpec = new IvParameterSpec(ivParameter);
@@ -44,32 +45,28 @@ public class JceBase64Encryptor implements IEncryptor {
 			decCipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
 			
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | InvalidAlgorithmParameterException e) {
-			throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR);
+			throw new RuntimeException(e);
 		}
 		
 	}
 	
 	@Override
 	public String encrypt(String message) {
-		byte[] encrypted = new byte[0];
 		try {
-			encrypted = encCipher.doFinal(message.getBytes());
+			byte[] encrypted = encCipher.doFinal(message.getBytes());
+			return Base64.getEncoder().encodeToString(encrypted);
 		} catch (IllegalBlockSizeException | BadPaddingException e) {
-			throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR);
+			throw new RuntimeException(e);
 		}
-        return Base64.getEncoder().encodeToString(encrypted);
 	}
 
 	@Override
 	public String decrypt(String encryptedMessage) {
-		byte[] ciphered = Base64.getDecoder().decode(encryptedMessage.getBytes());
-		byte[] decrypted = new byte[0];
         try {
-        	decrypted = decCipher.doFinal(ciphered);
+    		byte[] ciphered = Base64.getDecoder().decode(encryptedMessage.getBytes());
+            return new String(decCipher.doFinal(ciphered));
 		} catch (IllegalBlockSizeException | BadPaddingException e) {
-			throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR);
+			throw new RuntimeException(e);
 		}
-        return new String(decrypted);
 	}
-	
 }

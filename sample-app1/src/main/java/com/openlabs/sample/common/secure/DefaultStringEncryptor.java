@@ -16,7 +16,7 @@ public class DefaultStringEncryptor implements IEncryptor {
 	private void initialize() {
         encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-        config.setPassword(SecureKeyHandler.getKey());
+        config.setPassword(SecureKeyHandler.getKey().toString());
         config.setAlgorithm("PBEWithMD5AndDES");
         config.setKeyObtentionIterations("1000");
         config.setPoolSize("1");
