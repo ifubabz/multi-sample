@@ -61,6 +61,18 @@ public class UserController {
 		return restTemplate.getForEntity("http://localhost:8080/user/now", String.class);
 	}
 	
+	@ApiOperation("재시도 테스트")
+	@GetMapping(path = "/retry2")
+	public ResponseEntity<String> retry2() {
+		return restTemplate.getForEntity("http://localhost:8888/users/now", String.class);
+	}
+	
+	@ApiOperation("재시도 테스트")
+	@GetMapping(path = "/retry3")
+	public ResponseEntity<String> retry3() {
+		return restTemplate.getForEntity("http://15.15.15.1:8080/users/now", String.class);
+	}
+	
 	@ApiOperation("암호화")
 	@GetMapping(path = "/enc")
 	public ResponseEntity<String> enc(@RequestBody UserInfo userInfo) {
