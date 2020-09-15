@@ -13,7 +13,7 @@ public class SecureKeyProviderFactory {
 	}
 	
 	private static class InnerInstanceClazz {
-		private static final SecureKeyProviderFactory instance = new SecureKeyProviderFactory();
+		public static final SecureKeyProviderFactory instance = new SecureKeyProviderFactory();
 	}
 	
 	public static SecureKeyProviderFactory getInstance() {

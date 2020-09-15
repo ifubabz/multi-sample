@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openlabs.sample.common.RetrybleRestTemplate;
+import com.openlabs.sample.common.secure.EncryptorFactory;
+import com.openlabs.sample.common.secure.EncryptorFactory.ENCRYPT_TYPE;
 import com.openlabs.sample.exception.CommonException;
 import com.openlabs.sample.exception.ErrorCode;
 import com.openlabs.sample.model.PagingInfo;
@@ -47,16 +49,30 @@ public class UserController {
 		return now;
 	}
 	
-	@ApiOperation("현재 시간 출력")
+	@ApiOperation("재시도 테스트")
 	@GetMapping(path = "/retry")
 	public ResponseEntity<String> retry() {
 		return restTemplate.getForEntity("http://localhost:8080/users/now", String.class);
 	}
 	
-	@ApiOperation("현재 시간 출력")
+	@ApiOperation("재시도 테스트")
 	@GetMapping(path = "/retry1")
 	public ResponseEntity<String> retry1() {
 		return restTemplate.getForEntity("http://localhost:8080/user/now", String.class);
+	}
+	
+	@ApiOperation("암호화")
+	@GetMapping(path = "/enc")
+	public ResponseEntity<String> enc(@RequestBody UserInfo userInfo) {
+		String result = EncryptorFactory.getInstance().getEncryptor(ENCRYPT_TYPE.DEFAULT).encrypt(userInfo.getId());
+		return ResponseEntity.ok(result);
+	}
+	
+	@ApiOperation("암호화")
+	@GetMapping(path = "/enc2")
+	public ResponseEntity<String> enc2(@RequestBody UserInfo userInfo) {
+		String result = EncryptorFactory.getInstance().getEncryptor(ENCRYPT_TYPE.JCE).encrypt(userInfo.getId());
+		return ResponseEntity.ok(result);
 	}
 	
 	@ApiOperation("사용자 정보 목록")
