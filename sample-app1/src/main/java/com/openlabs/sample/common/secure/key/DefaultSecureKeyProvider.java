@@ -1,4 +1,4 @@
-package com.openlabs.sample.common.secure;
+package com.openlabs.sample.common.secure.key;
 
 public class DefaultSecureKeyProvider implements SecureKeyProvider {
 
@@ -7,4 +7,8 @@ public class DefaultSecureKeyProvider implements SecureKeyProvider {
 		return "password";
 	}
 
+	@Override
+	public String getIvParameter() {
+		return "";
+	}
 }
