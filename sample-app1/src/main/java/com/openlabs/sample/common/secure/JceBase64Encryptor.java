@@ -14,7 +14,6 @@ import javax.crypto.spec.SecretKeySpec;
 
 import com.openlabs.sample.common.secure.key.SecureKeyProvider;
 import com.openlabs.sample.common.secure.key.SecureKeyProviderFactory;
-import com.openlabs.sample.common.secure.key.SecureKeyProviderFactory.SECURE_KEY_TYPE;
 
 public class JceBase64Encryptor implements IEncryptor {
 
@@ -29,7 +28,7 @@ public class JceBase64Encryptor implements IEncryptor {
 	}
 	
 	private void initialize() {
-		SecureKeyProvider secureKeyProvider = SecureKeyProviderFactory.getInstance().getProvider(SECURE_KEY_TYPE.JCE);
+		SecureKeyProvider secureKeyProvider = SecureKeyProviderFactory.getInstance().getProvider();
 		byte[] key = secureKeyProvider.getKey();
 		byte[] ivParameter = secureKeyProvider.getIvParameter();
 

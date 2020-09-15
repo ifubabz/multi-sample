@@ -13,7 +13,6 @@ public class SecureKeyProviderFactory {
 
 	private void initialize() {
 		map.put(SECURE_KEY_TYPE.DEFAULT, new DefaultSecureKeyProvider());
-		map.put(SECURE_KEY_TYPE.JCE, new JceSecureKeyProvider());
 	}
 	
 	private static class InnerInstanceHolder {
@@ -33,6 +32,6 @@ public class SecureKeyProviderFactory {
 	}
 	
 	public enum SECURE_KEY_TYPE {
-		DEFAULT, JCE
+		DEFAULT
 	}
 }

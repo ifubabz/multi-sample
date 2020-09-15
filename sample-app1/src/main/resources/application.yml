@@ -11,7 +11,7 @@ spring:
       driver-class-name: com.p6spy.engine.spy.P6SpyDriver
       jdbc-url: jdbc:p6spy:oracle:thin:@192.168.0.102:1521:ORCLCDB
       username: ejpark
-      password: ENC(LQXGtqOrIx7qMX+QnFrGLA==)
+      password: ENC(NTVL4GG/Ktm1TZC+Uyr6/Q==)
       hikari:
         connection-timeout: 30000 #30 sec
         validation-timeout: 10000 #10 sec
@@ -23,7 +23,7 @@ spring:
       driver-class-name: com.p6spy.engine.spy.P6SpyDriver
       jdbc-url: jdbc:p6spy:ignite:cfg://distributedJoins=true:transactionsAllowed=true:@ignite-config.xml
       username: test
-      password: ENC(H+OQ6qJOb4ChmhIIOhAvzg==)
+      password: ENC(EDtFdMsIZ0x/jYuDQQ+FpA==)
       hikari:
         connection-timeout: 30000 #30 sec
         validation-timeout: 10000 #10 sec
@@ -85,7 +85,7 @@ spring:
     driver-class-name: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@192.168.0.102:1521:ORCLCDB
     username: ejpark
-    password: ENC(LQXGtqOrIx7qMX+QnFrGLA==)
+    password: ENC(NTVL4GG/Ktm1TZC+Uyr6/Q==)
     
 logging:
   level:
@@ -100,7 +100,7 @@ spring:
     driver-class-name: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@192.168.0.102:1521:ORCLCDB
     username: ejpark
-    password: ENC(LQXGtqOrIx7qMX+QnFrGLA==)
+    password: ENC(NTVL4GG/Ktm1TZC+Uyr6/Q==)
 
 logging:
   level:

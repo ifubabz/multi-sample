@@ -87,6 +87,20 @@ public class UserController {
 		return ResponseEntity.ok(result);
 	}
 	
+	@ApiOperation("암호화")
+	@GetMapping(path = "/dec")
+	public ResponseEntity<String> dec(@RequestBody UserInfo userInfo) {
+		String result = EncryptorFactory.getInstance().getEncryptor().decrypt(userInfo.getId());
+		return ResponseEntity.ok(result);
+	}
+	
+	@ApiOperation("암호화")
+	@GetMapping(path = "/dec2")
+	public ResponseEntity<String> dec2(@RequestBody UserInfo userInfo) {
+		String result = EncryptorFactory.getInstance().getEncryptor(ENCRYPT_TYPE.JCE).decrypt(userInfo.getId());
+		return ResponseEntity.ok(result);
+	}
+	
 	@ApiOperation("사용자 정보 목록")
 	@GetMapping(path = "/")
 	public ResponseEntity<List<UserInfo>> getUserList(@ModelAttribute PagingInfo pagingInfo) {
